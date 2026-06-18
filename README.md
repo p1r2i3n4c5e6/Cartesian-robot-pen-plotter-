@@ -100,3 +100,4 @@ Ensure that no other software (such as the Arduino IDE Serial Monitor, LaserGRBL
 
 ### 3. Log Tracking
 All events, status updates, alarms, and G-code streams are logged automatically inside `robot with python /logs/robot.log` for diagnostics.
+# Cartesian-robot-pen-plotter-
