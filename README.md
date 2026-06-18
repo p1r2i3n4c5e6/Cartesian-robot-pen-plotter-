@@ -4,9 +4,11 @@ A professional-grade Cartesian pen plotter control system featuring dual-motor Y
 
 This repository contains both the **ESP32 FluidNC firmware configuration** and the **Python desktop controller application** (with direct serial and CNCjs Socket.IO support).
 
-### 🖥️ Application UI Preview
+### 🖥️ Application UI Preview & Demo
 
-![Plotter Control GUI Screenshot](gui_screenshot.png)
+| Main Application Interface | Live Text Plotting Demo ("PRINCE") |
+| :---: | :---: |
+| ![Plotter Control GUI Screenshot](gui_screenshot.png) | ![Plotter Control GUI Demo](gui_demo.gif) |
 
 ---
 
