@@ -1,0 +1,26 @@
+# ============================================================
+# CNCjs Plotter Bridge - Industrial Edition
+#  Run: pip install -r requirements.txt
+# ============================================================
+
+# Core GUI Framework (mandatory)
+PyQt5==5.15.10
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.13.0
+
+# Direct serial communication (mandatory for Direct mode)
+pyserial==3.5
+
+# Optional: only needed if you also want to use the cncjs Socket.IO
+# bridge from inside the app.  Direct mode works without this.
+python-socketio[client]==5.13.0
+
+# SVG / image import support
+Pillow==10.2.0
+lxml==5.1.0
+
+# Optional: nicer DXF support
+ezdxf==1.1.4
+
+# Optional: faster G-code processing on big files
+numpy==1.26.3

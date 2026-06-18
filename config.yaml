@@ -1,0 +1,162 @@
+board: ESP32
+name: KNK Cartesian Dual Y
+
+stepping:
+  engine: RMT
+  idle_ms: 255
+  pulse_us: 15
+  dir_delay_us: 0
+  disable_delay_us: 0
+  segments: 12
+
+spi:
+  miso_pin: NO_PIN
+  mosi_pin: NO_PIN
+  sck_pin: NO_PIN
+
+sdcard:
+  cs_pin: NO_PIN
+  card_detect_pin: NO_PIN
+  frequency_hz: 8000000
+
+kinematics:
+  Cartesian:
+
+axes:
+  shared_stepper_disable_pin: NO_PIN
+  shared_stepper_reset_pin: NO_PIN
+  homing_runs: 2
+
+  ########################################
+  # X AXIS
+  # NOTE: Changed limit pins from gpio.16/17
+  # to gpio.13/15 because gpio.16 and gpio.17
+  # are reserved for PSRAM on ESP32-WROVER
+  # modules and cannot be used as GPIO.
+  # >>> YOU MUST REWIRE your X limit switches
+  #     to gpio.13 (neg) and gpio.15 (pos) <<<
+  ########################################
+  x:
+    steps_per_mm: 80.0
+    max_rate_mm_per_min: 1000.0
+    acceleration_mm_per_sec2: 25.0
+    max_travel_mm: 1000.0
+    soft_limits: true
+
+    homing:
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0.0
+      seek_mm_per_min: 500.0
+      feed_mm_per_min: 100.0
+
+    motor0:
+      limit_neg_pin: gpio.13:low:pu
+      limit_pos_pin: gpio.15:low:pu
+      hard_limits: true
+      pulloff_mm: 2.0
+      standard_stepper:
+        step_pin: gpio.12
+        direction_pin: gpio.14
+
+  ########################################
+  # Y AXIS (DUAL MOTOR - AUTO SQUARE)
+  ########################################
+  y:
+    steps_per_mm: 80.0
+    max_rate_mm_per_min: 1000.0
+    acceleration_mm_per_sec2: 25.0
+    max_travel_mm: 1000.0
+    soft_limits: true
+
+    homing:
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0.0
+      seek_mm_per_min: 500.0
+      feed_mm_per_min: 100.0
+
+    motor0:
+      limit_neg_pin: gpio.18:low:pu
+      limit_pos_pin: gpio.19:low:pu
+      hard_limits: true
+      pulloff_mm: 2.0
+      standard_stepper:
+        step_pin: gpio.26
+        direction_pin: gpio.27
+
+    motor1:
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: NO_PIN
+      hard_limits: false
+      pulloff_mm: 2.0
+      standard_stepper:
+        step_pin: gpio.25
+        direction_pin: gpio.33
+
+  ########################################
+  # Z AXIS
+  ########################################
+  z:
+    steps_per_mm: 80.0
+    max_rate_mm_per_min: 1000.0
+    acceleration_mm_per_sec2: 25.0
+    max_travel_mm: 1000.0
+    soft_limits: true
+
+    homing:
+      cycle: 1
+      positive_direction: false
+      mpos_mm: 0.0
+      seek_mm_per_min: 500.0
+      feed_mm_per_min: 50.0
+
+    motor0:
+      limit_neg_pin: gpio.21:low:pu
+      limit_pos_pin: gpio.22:low:pu
+      hard_limits: true
+      pulloff_mm: 2.0
+      standard_stepper:
+        step_pin: gpio.32
+        direction_pin: gpio.4
+
+  ########################################
+  # A AXIS (SERVO GRIPPER)
+  ########################################
+  # steps_per_mm for servo: 1 degree = 1 unit
+  a:
+    steps_per_mm: 11.0
+    max_rate_mm_per_min: 5000.0
+    acceleration_mm_per_sec2: 200.0
+    max_travel_mm: 180.0
+    soft_limits: false
+
+    homing:
+      cycle: -1
+      positive_direction: false
+      mpos_mm: 0.0
+
+    motor0:
+      rc_servo:
+        output_pin: gpio.23
+        pwm_hz: 50
+        min_pulse_us: 500
+        max_pulse_us: 2500
+
+########################################
+# CONTROL
+########################################
+control:
+  estop_pin: NO_PIN
+
+probe:
+  pin: NO_PIN
+
+start:
+  must_home: false
+  check_limits: true
+
+arc_tolerance_mm: 0.002
+junction_deviation_mm: 0.010
+verbose_errors: true
+planner_blocks: 16

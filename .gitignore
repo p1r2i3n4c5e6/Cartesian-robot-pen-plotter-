@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local configuration files
+robot with python /settings.json
+settings.json
+
+# Local logs & streamed G-code outputs
+robot with python /logs/
+robot with python /gcode/
+logs/
+gcode/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
